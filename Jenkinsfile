@@ -54,8 +54,8 @@ pipeline {
                 script {
                     echo 'Building Backend...'
                     dir(env.BACKEND_DIR) {
-                        sh "dotnet restore"
-                        sh "dotnet build --configuration Release"
+                        sh " sudo dotnet restore"
+                        sh " su jenkins -c 'dotnet build --configuration Release'"
                     }
                 }
             }
