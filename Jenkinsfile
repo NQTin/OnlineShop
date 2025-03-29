@@ -22,13 +22,6 @@ pipeline {
                     sh "pm2 delete my-frontend || true"
                     sh "pm2 delete my-backend || true"
                     sh "rm -rf frontend/build backend/bin backend/obj"
-
-                    // sh """
-                    //     sudo ps aux | grep "[3]000" | awk '{print \$2}' | xargs sudo kill -9 || true
-                    // """
-                    // sh """
-                    //     sudo ps aux | grep "[5]214" | awk '{print \$2}' | xargs sudo kill -9 || true
-                    // """
                 }
             }
         }
@@ -38,8 +31,8 @@ pipeline {
                 script {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
-                        sh 'npm install'
-                        sh 'npm run build'
+                        sh ' sudo npm install'
+                        sh ' sudo npm start'
                     }
                 }
             }
