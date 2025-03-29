@@ -31,8 +31,8 @@ pipeline {
                 script {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
-                        sh ' sudo npm install'
-                        sh ' sudo npm start'
+                        sh 'npm install'
+                        sh 'npm start'
                     }
                 }
             }
@@ -54,8 +54,8 @@ pipeline {
                 script {
                     echo 'Building Backend...'
                     dir(env.BACKEND_DIR) {
-                        sh " sudo dotnet restore"
-                        sh " sudo dotnet build --configuration Release "
+                        sh "dotnet restore"
+                        sh "dotnet build --configuration Release "
                     }
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
                 script {
                     echo "Deploy Backend"
                     dir(env.BACKEND_DIR) {
-                        sh " sudo nohup dotnet run > backend-log 2>&1 &"
+                        sh " nohup dotnet run > backend-log 2>&1 &"
                     }
                 }
             }
