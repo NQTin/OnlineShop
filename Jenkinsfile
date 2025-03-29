@@ -31,8 +31,8 @@ pipeline {
                 script {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
-                        sh 'npm install'
-                        sh 'npm start'
+                        sh "su jenkins -c 'npm install'"
+                        sh "su jenkins -c 'npm start'"
                     }
                 }
             }
@@ -54,8 +54,8 @@ pipeline {
                 script {
                     echo 'Building Backend...'
                     dir(env.BACKEND_DIR) {
-                        sh "dotnet restore"
-                        sh "dotnet build --configuration Release "
+                        sh "su jenkins -c 'dotnet restore'"
+                        sh "su jenkins -c 'dotnet build --configuration Release'"
                     }
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
                 script {
                     echo "Deploy Backend"
                     dir(env.BACKEND_DIR) {
-                        sh " nohup dotnet run > backend-log 2>&1 &"
+                        sh " su jenkins -c 'nohup dotnet run > backend-log 2>&1 &'"
                     }
                 }
             }
