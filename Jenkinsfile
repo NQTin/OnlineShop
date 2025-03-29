@@ -55,7 +55,7 @@ pipeline {
                     echo 'Building Backend...'
                     dir(env.BACKEND_DIR) {
                         sh " sudo dotnet restore"
-                        sh " su ${USER_PROJECTS} -c 'dotnet build --configuration Release'"
+                        sh " su jenkins -c 'dotnet build --configuration Release'"
                     }
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
                 script {
                     echo "Deploy Backend"
                     dir(env.BACKEND_DIR) {
-                        sh " su ${USER_PROJECTS} -c 'nohup dotnet run > backend-log 2>&1 &'"
+                        sh " su jenkins -c 'nohup dotnet run > backend-log 2>&1 &'"
                     }
                 }
             }
