@@ -26,52 +26,31 @@ pipeline {
             }
         }
 
-        stage('Build Frontend') {
+        stage('Build and Deploy Frontend') {
             steps {
                 script {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
                         sh "su jenkins -c 'npm install'"
                         sh "su jenkins -c 'npm start'"
-                    }
-                }
-            }
-        }
-
-        stage('Deploy Frontend') {
-            steps {
-                script {
-                    echo "Deploy Frontend..."
-                    dir(env.FRONTEND_DIR) {
                         sh "pm2 start 'serve -s build' --name onlineshop-frontend"
                     }
                 }
             }
         }
 
-        stage('Build Backend') {
+        stage('Build and Deploy Backend') {
             steps {
                 script {
                     echo 'Building Backend...'
                     dir(env.BACKEND_DIR) {
-                        sh "su jenkins -c 'dotnet restore'"
-                        sh "su jenkins -c 'dotnet build --configuration Release'"
+                        sh 'dotnet restore'
+                        sh 'dotnet build --configuration Release'
+                        sh 'nohup dotnet run > backend-log 2>&1 &'
                     }
                 }
             }
         }
-
-        stage('Deploy Backend') {
-            steps {
-                script {
-                    echo "Deploy Backend"
-                    dir(env.BACKEND_DIR) {
-                        sh " su jenkins -c 'nohup dotnet run > backend-log 2>&1 &'"
-                    }
-                }
-            }
-        }
-    }
 
     post {
         success {
