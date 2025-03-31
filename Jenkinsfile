@@ -9,11 +9,21 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clean Workspace') {
             steps {
-                checkout scm
+                deleteDir() // Xóa thư mục workspace trước khi chạy
             }
         }
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/NQTin/OnlineShop.git'
+            }
+        }
+        // stage('Checkout') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
 
         stage('Clean Old Services') {
             steps {
