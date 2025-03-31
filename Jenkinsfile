@@ -19,7 +19,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/NQTin/OnlineShop.git'
             }
         }
-        
+      
         // stage('Checkout') {
         //     steps {
         //         checkout scm
