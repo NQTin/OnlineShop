@@ -1,4 +1,4 @@
-# Sneaker Ecommerce (Let test again ver1.0)
+# Sneaker Ecommerce (Let test again ver2.0)
 
 > I've improved and updated the front-end code on the improve/legacy-code branch. If you're having issues starting the project with the backend, use this branch. I'll be improving the backend code and connecting it soon.
 >
