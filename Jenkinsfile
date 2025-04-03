@@ -31,8 +31,8 @@ pipeline {
                 script {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
-                        sh "su jenkins -c 'npm install'"
-                        sh "su jenkins -c 'npm start'"
+                        sh 'npm install'
+                        // sh 'npm start'
                         sh "pm2 start 'serve -s build' --name onlineshop-frontend"
                     }
                 }
