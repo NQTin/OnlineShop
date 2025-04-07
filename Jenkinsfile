@@ -33,7 +33,7 @@ pipeline {
                     echo "Building Frontend..."
                     dir(env.FRONTEND_DIR) {
                         sh 'npm install'
-                        // sh 'npm start'
+                        sh 'npm run start'
                         sh "pm2 start 'serve -s build' --name onlineshop-frontend"
                         sh "pm2 list"
                     }
