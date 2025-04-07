@@ -22,6 +22,7 @@ pipeline {
                     sh "pm2 delete my-frontend || true"
                     sh "pm2 delete my-backend || true"
                     sh "rm -rf frontend/build backend/bin backend/obj"
+                    sh "pm2 list"
                 }
             }
         }
@@ -34,6 +35,7 @@ pipeline {
                         sh 'npm install'
                         // sh 'npm start'
                         sh "pm2 start 'serve -s build' --name onlineshop-frontend"
+                        sh "pm2 list"
                     }
                 }
             }
@@ -46,7 +48,9 @@ pipeline {
                     dir(env.BACKEND_DIR) {
                         sh 'dotnet restore'
                         sh 'dotnet build --configuration Release'
-                        sh 'nohup dotnet run > backend-log 2>&1 &'
+                        // sh 'nohup dotnet run > backend-log 2>&1 &'
+                        sh "pm2 start 'dotnet run' --name onlineshop-backend"
+                        sh 'pm2 list'
                     }
                 }
             }
