@@ -35,7 +35,6 @@ pipeline {
                         sh 'npm install'
                         sh 'CI=false npm run build'
                         sh 'ls -la && ls -la build' // check build tồn tại
-                        sh 'which serve || npm install -g serve'
                         sh "pm2 start 'serve -s build -l 3000' --name onlineshop-frontend"
                         // sh "pm2 start 'serve -s build' --name onlineshop-frontend"
                         sh "pm2 list"
