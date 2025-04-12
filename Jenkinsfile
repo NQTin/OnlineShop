@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     def tagsJson = sh(
-                        script: "curl -s https://registry.hub.docker.com/v2/repositories/${image}/tags?page_size=100",
+                        script: "curl -s https://registry.hub.docker.com/v2/repositories/${env.IMAGE_NAME}/tags?page_size=100",
                         returnStdout: true
                     ).trim()
                 
