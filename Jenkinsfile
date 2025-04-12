@@ -73,12 +73,6 @@ pipeline {
                         sh 'docker logout'
                         
                         sh "docker run -d -p 3000:3000 --name frontend_${env.NEXT_TAG} ${env.IMAGE_NAME}:${env.NEXT_TAG}"
-                        // sh 'npm install'
-                        // sh 'CI=false npm run build'
-                        // sh 'ls -la && ls -la build' // check build tồn tại
-                        // sh "pm2 start 'serve -s build -l 3000' --name onlineshop-frontend"
-                        // // sh "pm2 start 'serve -s build' --name onlineshop-frontend"
-                        // sh "pm2 list"
                     }
                 }
             }
