@@ -38,14 +38,22 @@ pipeline {
             }
             steps {
                 script {
-                    def existingTags = sh(
-                        script: "docker pull ${IMAGE_NAME} || true && docker images --format '{{.Tag}}' ${IMAGE_NAME} | grep '^v' | sort -V",
+                    def tagsJson = sh(
+                        script: "curl -s https://registry.hub.docker.com/v2/repositories/${image}/tags?page_size=100",
                         returnStdout: true
-                    ).trim().split("\n")
-
-                    def latestVersion = existingTags.collect { it.replace("v", "").toInteger() }.max() ?: 0
+                    ).trim()
+                
+                    def tags = new groovy.json.JsonSlurperClassic().parseText(tagsJson).results*.name
+                    def versionTags = tags.findAll { it.startsWith("v") }
+                
+                    def latestVersion = versionTags ?
+                        versionTags.collect { it.replace("v", "").toInteger() }.max() :
+                        0
+                
                     def nextVersion = latestVersion + 1
-                    env.NEXT_TAG = "${nextVersion}"
+                    env.NEXT_TAG = "v${nextVersion}"
+                
+                    echo "Latest version: v${latestVersion}"
                     echo "Next version tag: ${env.NEXT_TAG}"
                 }
             }
