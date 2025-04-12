@@ -20,7 +20,7 @@ pipeline {
         stage('Check for code changes') {
             steps {
                 script {
-                    def changeLog = git diff HEAD~1 HEAD
+                    def changeLog = sh(script: "git diff HEAD~1 HEAD", returnStdout: true)
                     if (changeLog.trim() == "") {
                         echo "No code changes detected. Skipping build."
                         currentBuild.result = 'SUCCESS'
