@@ -23,4 +23,4 @@ COPY --from=builder /app/build ./build
 EXPOSE 3000
 
 # Chạy app production trên port 3000
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build", "-l", "http://0.0.0.0:3000"]
