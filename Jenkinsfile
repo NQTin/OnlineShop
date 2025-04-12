@@ -69,7 +69,7 @@ pipeline {
                             sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
                         }
                         
-                        sh "docker push ${env.IMAGE_NAME}:${env.NEXT_TAG}"
+                        // sh "docker push ${env.IMAGE_NAME}:${env.NEXT_TAG}"
                         sh 'docker logout'
                         
                         sh "docker run -d -p 3000:3000 --name frontend_${env.NEXT_TAG} ${env.IMAGE_NAME}:${env.NEXT_TAG}"
